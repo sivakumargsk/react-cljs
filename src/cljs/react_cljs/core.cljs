@@ -2,7 +2,8 @@
   (:require [goog.events :as events]
             [goog.dom :as dom]
             [goog.history.EventType :as EventType]
-            [reagent.core :as reagent :refer [atom render]]))
+            [reagent.core :as reagent :refer [atom render]]
+            [ajax.core :refer [POST]]))
 
 
 (def state (atom {:doc {} :saved? false}))
@@ -53,6 +54,12 @@
 ;; ---------------------------------------------------------------------------------
 ;; pages
 
+(defn save-doc []
+  (POST (str js/context "/save")
+        {:params (:doc @state)
+         :handler (fn [_] (swap! state assoc :saved? true))}))
+
+
 (defn home []
   [:div
    [:div.page-header [:h1 "Reagent Form"]]
@@ -64,9 +71,12 @@
     [:beer "Beer"]
     [:crab-juice "Crab juice"]]
 
-   [:button.btn.btn-primary {:type "submit"
-                             :on-click #(.log js/console (clj->js @state))}
-    "Submit"]])
+   (if (:saved? @state)
+     [:p "Saved"]
+     [:button {:type "submit"
+               :class "btn btn-default"
+               :onClick save-doc}
+      "Submit"])])
 
 (defn render-home []
   (reagent/render-component [home]
