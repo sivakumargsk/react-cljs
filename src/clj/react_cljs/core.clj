@@ -1,4 +1,5 @@
 (ns react-cljs.core
+  (:use compojure.core)
   (:require [qbits.jet.server :refer [run-jetty]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [compojure.core :refer :all]
@@ -9,6 +10,8 @@
             [bouncer.validators :as v]
             [secretary.core :as secretary :refer-macros [defroute]]
             [clj-time.format :as f]
+            [noir.response :refer [edn]]
+            [clojure.pprint :refer [pprint]]
             ))
 
 ;; Simple function that works as controller
@@ -18,11 +21,18 @@
   [req]
   (render (io/resource "index.html") req))
 
+(defroutes service-routes
+  (POST "/save" {:keys [body-params]}
+        (edn (save-document body-params))))
 ;; Routes definition
 (defroutes app
   (GET "/" [] home)
   (route/resources "/static")
   (route/not-found "<h1>Page not found</h1>"))
+
+(defroutes service-routes
+  (POST "/save" {:keys [body-params]}
+        (edn (save-document body-params))))
 
 ;; Application entry point
 (defn -main
