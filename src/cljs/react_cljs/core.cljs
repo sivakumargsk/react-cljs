@@ -6,12 +6,16 @@
             [bouncer.core :as b]
             [bouncer.validators :as v]
             [secretary.core :as secretary]
-            [reagent.core :as reagent :refer [atom render]])
+            [reagent.core :as reagent :refer [atom render]]
+            [cljsjs.react-bootstrap])
   (:import goog.History))
 
+(def button (reagent/adapt-react-class (aget js/ReactBootstrap "Button")))
+
 (defn home []
-  [:div.pageheader
-   [:h2 "Hello World"]])
+  [:div
+   [:h2 "A sample title"]
+   [button "with a button"]])
 
 (defn render-sample []
   (reagent/render-component [home]
