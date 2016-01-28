@@ -20,7 +20,7 @@
                  [clj-time "0.11.0"]
                  [bouncer "1.0.0"]
                  [reagent "0.5.1"]
-                 [cljsjs/react-bootstrap "0.28.1-0"]
+                 [cljsjs/react-bootstrap "0.28.1-0" :exclusions [org.webjars.bower/jquery]]
                  ]
   :source-paths ["src/clj"]
   :main react-cljs.core
