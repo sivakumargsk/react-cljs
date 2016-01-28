@@ -15,11 +15,10 @@
 (defn home []
   [:div
    [:h2 "A sample title"]
-   [button "with a button"]])
+   [button {:bsStyle "primary"} "with a button"]])
 
 (defn render-sample []
   (reagent/render-component [home]
                             (.getElementById js/document "app")))
-
 
 (render-sample)
