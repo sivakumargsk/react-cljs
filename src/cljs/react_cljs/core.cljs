@@ -14,33 +14,62 @@
   (:import goog.History))
 
 (defn main-page []
-  [:div.container
+  [:div
    [:div.page-header
     [:center
      [:h2 "Record Room Management System"]]]
-   [:div.col-md-3
+   [:div.col-md-2
     [:ul.nav.nav-pills.nav-stacked
      [:li.active [:a {:data-toggle "pill" :href "#masavi"} "Masavi Records"]]
      [:li [:a {:data-toggle "pill" :href "#consolidation"} "Consoliation Records"]]
-     [:li [:a {:data-toggle "pill" :href "#menu2"} "Menu 2"]]
-     [:li [:a {:data-toggle "pill" :href "#menu3"} "Menu 3"]]]]
-   [:div.col-md-9
+     [:li [:a {:data-toggle "pill" :href "#field"} "Filed Form"]]
+     [:li [:a {:data-toggle "pill" :href "#khasragirdwani"} "Khasra Girdwani"]]
+     [:li [:a {:data-toggle "pill" :href "#revenuerecord"} "Revenue Record"]]
+     [:li [:a {:data-toggle "pill" :href "#misc"} "Misc Records"]]
+     [:li [:a {:data-toggle "pill" :href "#o2register"} "O2 Register"]]
+     [:li [:a {:data-toggle "pill" :href "#o4register"} "O4 Register"]]
+     [:li [:a {:data-toggle "pill" :href "#o6register"} "O6 Register"]]
+     [:li [:a {:data-toggle "pill" :href "#mutation"} "Mutation Records"]]]]
+   [:div.col-md-10
     [:div.tab-content
      [:div#masavi.tab-pane.fade.in.active
       [:center [:h3 "Masavi Records"]]
       [records/masavi-table @records/masavi-dataset]]
      [:div#consolidation.tab-pane.fade
       [:center [:h3 "Consolidation Records"]]
-      [records/consolidation-table @records/consolidation-dataset]
+      [records/consolidation-table @records/consolidation-dataset]]
+     [:div#field.tab-pane.fade
+      [:center  [:h3 "Field Form"]]
+      [records/fieldform-table @records/fieldform-dataset]]
+     [:div#khasragirdwani.tab-pane.fade
+      [:center [:h3 "Khasra Girdwani"]]
+      [records/khasragirdwani-table @records/khasragirdwani-dataset]]
+     [:div#revenuerecord.tab-pane.fade
+      [:center [:h3 "Revenue Record"]]
+      [records/revenuerecord-table @records/revenuerecord-dataset]]
+     [:div#misc.tab-pane.fade
+      [:center [:h3 "Misc Records"]]
+      [records/misc-table @records/misc-dataset]]
+     [:div#o2register.tab-pane.fade
+      [:center [:h3 "O2 Register"]]
+      [records/o2register-table @records/o2register-dataset]]
+     [:div#o4register.tab-pane.fade
+      [:center [:h3 "O4 Register"]]
+      [records/o4register-table @records/o4register-dataset]
       ]
-     [:div#menu2.tab-pane.fade [:h3 "Menu 2"]
-      [:p "sdkgjjkkkj knjknds n vnefsjlmv"]]
-     [:div#menu3.tab-pane.fade [:h3 "Menu 3"]
-      [:p "asdl;sfdkgl;fhlklgj lkjldgjl;h"]]]]])
+     [:div#o6register.tab-pane.fade
+      [:center [:h3 "O6 Register"]]
+      [records/o6register-table @records/o6register-dataset]]
+     [:div#mutation.tab-pane.fade
+      [:center [:h3 "Mutation Records"]]
+      [records/mutation-table @records/mutation-dataset]
+      ]
+     ]]])
 
 
 (defn home-page []
-  [:div.container [main-page]])
+  [:div [main-page]])
+
 
 (defn current-page []
   [:div [(session/get :current-page)]])
