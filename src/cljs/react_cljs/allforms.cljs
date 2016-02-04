@@ -1215,6 +1215,43 @@
                              [:b (str (first ((mutation-validator @data-set) id)))]])
                           [:div])]]]])))
 
+
+;; (def name-po ["Kumar" "Sai" "Bhaskar" "Rajesh"])
+
+(defn datalist []
+  [:datalist {:id "combo"}
+   (let [name-po ["Kumar" "Sai" "Bhaskar" "Rajesh"]]
+     (for [i name-po]
+       ^{:key i}
+       [:option {:value i}]))])
+
+(defn input-combo [id data-set placeholder in-focus]
+  [:input.form-control {:id id
+                        :list "combo"
+                        :value (@data-set id)
+                        :placeholder placeholder
+                        :on-change #(swap! data-set assoc id (-> % .-target .-value))
+                        :on-blur  #(reset! in-focus "on")
+                        }
+   [datalist ]])
+
+
+(defn mutation-row-combo [id label data-set focus]
+  (let [input-focus (atom nil)]
+    (fn []
+      [:div.form-group
+       [:div.col-md-12
+        [:div.row
+         [:div.col-md-2 [:label label]]
+         [:div.col-md-7 [input-combo id data-set label input-focus]]
+         [:div.col-md-3 (if (or @input-focus @focus)
+                          (if (= nil (mutation-validator @data-set))
+                            [:div]
+                            [:div {:style  {:color "red"}}
+                             [:b (str (first ((mutation-validator @data-set) id)))]])
+                          [:div])]]]])))
+
+
 (defn mutation-document-template [doc-name data-set focus fun]
   [:div.container
    [:div.panel.panel-primary.model-dialog
@@ -1228,7 +1265,7 @@
        [mutation-row :name-of-party "Name of District" "text" data-set focus ]
        [mutation-row :date-if-institution "Date if institution" "date" data-set focus ]
        ;; [:select#name-of-po [:option {:value "abc"} "abc"] [:option {:value "def"} "def"]]
-       [mutation-row :name-of-po "Name of P.O" "text" data-set focus ]
+       [mutation-row-combo :name-of-po "Name of P.O" data-set focus ]
        [mutation-row :date-of-decision "Date of Decision" "date" data-set focus]
        [mutation-row :title "Title" "text" data-set focus]
        [mutation-row :khasra-number "Khasra Number" "text" data-set focus]
