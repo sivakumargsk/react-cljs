@@ -112,11 +112,11 @@
      [:div.container
       [:div.form-group
        [masavi-row :id "Id" "number" data-set focus]
-       [masavi-row :s-no "S.No" "text" data-set focus]
+       [masavi-row :s-no "S.No" "number" data-set focus]
        [masavi-row :village-name "Village Name" "text" data-set focus ]
        [masavi-row :title "Title" "text" data-set focus]
        [masavi-row :tehsil "Tehsil" "text" data-set focus]
-       [masavi-row :year "Year" "text" data-set focus]
+       [masavi-row :year "Year" "date" data-set focus]
        [masavi-row :rack-location "Rack Location" "text" data-set focus]
        [:button.btn.btn-primary {:on-click fun} "Save" ]
        [:button.btn.btn-primary {:on-click #(accountant/navigate! "/")} "Cancel"]]]]]])
@@ -231,11 +231,11 @@
      [:div.container
       [:div.form-group
        [consolidation-row :id "Id" "number" data-set focus]
-       [consolidation-row :s-no "S.No" "text" data-set focus]
+       [consolidation-row :s-no "S.No" "number" data-set focus]
        [consolidation-row :village-name "Village Name" "text" data-set focus ]
        [consolidation-row :title "Title" "text" data-set focus]
        [consolidation-row :tehsil "Tehsil" "text" data-set focus]
-       [consolidation-row :year "Year" "text" data-set focus]
+       [consolidation-row :year "Year" "date" data-set focus]
        [consolidation-row :rack-location "Rack Location" "text" data-set focus]
        [:button.btn.btn-primary {:on-click fun} "Save" ]
        [:button.btn.btn-primary {:on-click #(accountant/navigate! "/")} "Cancel"]]]]]])
@@ -351,11 +351,11 @@
      [:div.container
       [:div.form-group
        [fieldform-row :id "Id" "number" data-set focus]
-       [fieldform-row :s-no "S.No" "text" data-set focus]
+       [fieldform-row :s-no "S.No" "number" data-set focus]
        [fieldform-row :village-name "Village Name" "text" data-set focus ]
        [fieldform-row :title "Title" "text" data-set focus]
        [fieldform-row :tehsil "Tehsil" "text" data-set focus]
-       [fieldform-row :year "Year" "text" data-set focus]
+       [fieldform-row :year "Year" "date" data-set focus]
        [fieldform-row :rack-location "Rack Location" "text" data-set focus]
        [:button.btn.btn-primary {:on-click fun} "Save" ]
        [:button.btn.btn-primary {:on-click #(accountant/navigate! "/")} "Cancel"]]]]]])
@@ -470,11 +470,11 @@
      [:div.container
       [:div.form-group
        [khasragirdwani-row :id "Id" "number" data-set focus]
-       [khasragirdwani-row :s-no "S.No" "text" data-set focus]
+       [khasragirdwani-row :s-no "S.No" "number" data-set focus]
        [khasragirdwani-row :village-name "Village Name" "text" data-set focus ]
        [khasragirdwani-row :title "Title" "text" data-set focus]
        [khasragirdwani-row :tehsil "Tehsil" "text" data-set focus]
-       [khasragirdwani-row :year "Year" "text" data-set focus]
+       [khasragirdwani-row :year "Year" "date" data-set focus]
        [khasragirdwani-row :rack-location "Rack Location" "text" data-set focus]
        [:button.btn.btn-primary {:on-click fun} "Save" ]
        [:button.btn.btn-primary {:on-click #(accountant/navigate! "/")} "Cancel"]]]]]])
@@ -589,11 +589,11 @@
      [:div.container
       [:div.form-group
        [revenuerecord-row :id "Id" "number" data-set focus]
-       [revenuerecord-row :s-no "S.No" "text" data-set focus]
+       [revenuerecord-row :s-no "S.No" "number" data-set focus]
        [revenuerecord-row :village-name "Village Name" "text" data-set focus ]
        [revenuerecord-row :title "Title" "text" data-set focus]
        [revenuerecord-row :tehsil-subdivision "Tehsil/Sub-Division" "text" data-set focus]
-       [revenuerecord-row :year "Year" "text" data-set focus]
+       [revenuerecord-row :year "Year" "date" data-set focus]
        [revenuerecord-row :rack-location "Rack Location" "text" data-set focus]
        [:button.btn.btn-primary {:on-click fun} "Save" ]
        [:button.btn.btn-primary {:on-click #(accountant/navigate! "/")} "Cancel"]]]]]])
@@ -834,14 +834,14 @@
       [:div.form-group
        [o2register-row :id "Id" "number" data-set focus]
        [o2register-row :tehsil "Tehsil" "text" data-set focus]
-       [o2register-row :s-no "S.no" "text" data-set focus]
-       [o2register-row :date-of-institution "Date of Institution" "text" data-set focus]
+       [o2register-row :s-no "S.no" "number" data-set focus]
+       [o2register-row :date-of-institution "Date of Institution" "date" data-set focus]
        [o2register-row :source-of-receipt "Source Of Receipt" "text" data-set focus]
        [o2register-row :name-of-village "Name Of Village" "text" data-set focus]
        [o2register-row :name-of-the-partys "Name of the Partys" "text" data-set focus]
        [o2register-row :date-of-receipt-from-panchayat "Date of Receipt from Panchayat" "date" data-set focus]
        [o2register-row :date-and-gist-of-final-order "Date and gist of final order" "date" data-set focus]
-       [o2register-row :rack-location "Rack Location" "text" data-set focus]
+       [o2register-row :rack-location "Rack Location" "number" data-set focus]
        [o2register-row :starting-year-of-o2-register "Starting year of o2 register" "number" data-set focus]
        [o2register-row :ending-year-of-o2-register "Ending year of 02 Register" "number" data-set focus]
        [:button.btn.btn-primary {:on-click fun} "Save" ]
@@ -960,7 +960,7 @@
        [o4register-row :id "Id" "number" data-set focus]
        [o4register-row :tehsil "Tehsil" "text" data-set focus]
        [o4register-row :khata-khatauni-number "Khata-khatuni-number" "text" data-set focus ]
-       [o4register-row :number-and-date-of-order "Number and Date Of order" "text" data-set focus ]
+       [o4register-row :number-and-date-of-order "Number and Date Of order" "date" data-set focus ]
        [o4register-row :khasra-number "khasra number" "text" data-set focus ]
        [o4register-row :area "Area" "text" data-set focus ]
        [o4register-row :revenue-rent-of-share-of-plots-transferred "revenue rent of share of plots transferred" "text" data-set focus ]
@@ -1074,9 +1074,9 @@
       [:div.form-group
        [o6register-row :id "Id" "number" data-set focus]
        [o6register-row :tehsil "Tehsil" "text" data-set focus]
-       [o6register-row :year "Year" "text" data-set focus ]
+       [o6register-row :year "Year" "date" data-set focus ]
        [o6register-row :mehsil-number "Mehsil Number" "text" data-set focus ]
-       [o6register-row :date-of-order-levy "Date of order levy" "text" data-set focus ]
+       [o6register-row :date-of-order-levy "Date of order levy" "date" data-set focus ]
        [o6register-row :name-of-village "Name of Village" "text" data-set focus]
        [o6register-row :name-of-person-whom-recovery-is-made "Name of Person whom recovery is made" "text" data-set focus ]
        [:button.btn.btn-primary {:on-click fun} "Save" ]
@@ -1273,9 +1273,9 @@
        [mutation-row :name-of-village "Name of Village" "text" data-set focus]
        [mutation-row :sub-division-name "Sub Division Name" "text" data-set focus]
        [mutation-row :name-of-district "Name of District" "text" data-set focus]
-       [mutation-row :o2-number "02 Number" "text" data-set focus]
-       [mutation-row :o4-number "04 Number" "text" data-set focus]
-       [mutation-row :o6-number "06 Number" "text" data-set focus]
+       [mutation-row :o2-number "O2 Number" "text" data-set focus]
+       [mutation-row :o4-number "O4 Number" "text" data-set focus]
+       [mutation-row :o6-number "O6 Number" "text" data-set focus]
        [mutation-row :rack-number "Rack Number" "text" data-set focus]
        [:button.btn.btn-primary {:on-click fun} "Save" ]
        [:button.btn.btn-primary {:on-click #(accountant/navigate! "/")} "Cancel"]]]]]])
