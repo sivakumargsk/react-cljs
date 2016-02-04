@@ -98,7 +98,7 @@
 (defn masavi-save-onclick [data-set focus]
   (if (= nil (masavi-validator @data-set))
     (do
-      ;;(swap! masavi-dataset conj @data-set)
+      (swap! masavi-dataset conj @data-set)
       (accountant/navigate! "/"))
     (reset! focus "on")))
 
@@ -139,16 +139,6 @@
        "Update Document"
        update-data focus
        #(masavi-save-onclick update-data focus)])))
-
-(defn current-page []
-  [:div [(session/get :current-page)]])
-
-(secretary/defroute "/masavi/add" []
-  (session/put! :current-page #'masavi-add-record))
-
-(secretary/defroute "/masavi/update" []
-  (session/put! :current-page #'masavi-upd-record))
-
 
 ;; --------------------------------
 ;; Consolidation form Record
@@ -227,7 +217,7 @@
 (defn consolidation-save-onclick [data-set focus]
   (if (= nil (consolidation-validator @data-set))
     (do
-      ;; (swap! consolidation-dataset conj @data-set)
+      (swap! consolidation-dataset conj @data-set)
       (accountant/navigate! "/"))
     (reset! focus "on")))
 
@@ -268,16 +258,6 @@
        "Update Document"
        update-data focus
        #(consolidation-save-onclick update-data focus)])))
-
-;; (defn current-page []
-;;   [:div [(session/get :current-page)]])
-
-(secretary/defroute "/consolidation/add" []
-  (session/put! :current-page #'consolidation-add-record))
-
-
-(secretary/defroute "/consolidation/update" []
-  (session/put! :current-page #'consolidation-upd-record))
 
 
 ;; --------------------------------
@@ -399,17 +379,6 @@
        update-data focus
        #(fieldform-save-onclick update-data focus)])))
 
-;; (defn current-page []
-;;   [:div [(session/get :current-page)]])
-
-(secretary/defroute "/fieldform/add" []
-  (session/put! :current-page #'fieldform-add-record))
-
-
-(secretary/defroute "/fieldform/update" []
-  (session/put! :current-page #'fieldform-upd-record))
-
-
 ;; --------------------------------
 ;; khasragirdwani form Record
 
@@ -487,7 +456,7 @@
 (defn khasragirdwani-save-onclick [data-set focus]
   (if (= nil (khasragirdwani-validator @data-set))
     (do
-      ;;(swap! khasragirdwani-dataset conj @data-set)
+      (swap! khasragirdwani-dataset conj @data-set)
       (accountant/navigate! "/"))
     (reset! focus "on")))
 
@@ -528,17 +497,6 @@
        "Update Document"
        update-data focus
        #(khasragirdwani-save-onclick update-data focus)])))
-
-;; (defn current-page []
-;;   [:div [(session/get :current-page)]])
-
-(secretary/defroute "/khasragirdwani/add" []
-  (session/put! :current-page #'khasragirdwani-add-record))
-
-
-(secretary/defroute "/khasragirdwani/update" []
-  (session/put! :current-page #'khasragirdwani-upd-record))
-
 
 ;; --------------------------------
 ;; revenuerecord form Record
@@ -617,7 +575,7 @@
 (defn revenuerecord-save-onclick [data-set focus]
   (if (= nil (revenuerecord-validator @data-set))
     (do
-      ;; (swap! revenuerecord-dataset conj @data-set)
+      (swap! revenuerecord-dataset conj @data-set)
       (accountant/navigate! "/"))
     (reset! focus "on")))
 
@@ -658,16 +616,6 @@
        "Update Document"
        update-data focus
        #(revenuerecord-save-onclick update-data focus)])))
-
-;; (defn current-page []
-;;   [:div [(session/get :current-page)]])
-
-(secretary/defroute "/revenuerecord/add" []
-  (session/put! :current-page #'revenuerecord-add-record))
-
-
-(secretary/defroute "/revenuerecord/update" []
-  (session/put! :current-page #'revenuerecord-upd-record))
 
 
 ;; --------------------------------
@@ -747,7 +695,7 @@
 (defn misc-save-onclick [data-set focus]
   (if (= nil (misc-validator @data-set))
     (do
-      ;; (swap! misc-dataset conj @data-set)
+      (swap! misc-dataset conj @data-set)
       (accountant/navigate! "/"))
     (reset! focus "on")))
 
@@ -788,16 +736,6 @@
        "Update Document"
        update-data focus
        #(misc-save-onclick update-data focus)])))
-
-;; (defn current-page []
-;;   [:div [(session/get :current-page)]])
-
-(secretary/defroute "/misc/add" []
-  (session/put! :current-page #'misc-add-record))
-
-
-(secretary/defroute "/misc/update" []
-  (session/put! :current-page #'misc-upd-record))
 
 
 ;;----------------------------------
@@ -937,14 +875,7 @@
        update-data focus
        #(o2register-save-onclick update-data focus)])))
 
-;; (defn current-page []
-;;   [:div [(session/get :current-page)]])
 
-(secretary/defroute "/o2register/add" []
-  (session/put! :current-page #'o2register-add-record))
-
-(secretary/defroute "/o2register/update" []
-  (session/put! :current-page #'o2register-upd-record))
 
 ;;------------------------------------------------------------
 ;;o4 register
@@ -1040,7 +971,7 @@
 (defn o4register-save-onclick [data-set focus]
   (if (= nil (o4register-validator @data-set))
     (do
-      ;; (swap! o4register-dataset conj @data-set)
+      (swap! o4register-dataset conj @data-set)
       (accountant/navigate! "/"))
     (reset! focus "on")))
 
@@ -1063,15 +994,6 @@
        "Update Document"
        update-data focus
        #(o4register-save-onclick update-data focus)])))
-
-;; (defn current-page []
-;;   [:div [(session/get :current-page)]])
-
-(secretary/defroute "/o4register/add" []
-  (session/put! :current-page #'o4register-add-record))
-
-(secretary/defroute "/o4register/update" []
-  (session/put! :current-page #'o4register-upd-record))
 
 
 ;; ----------------------------------
@@ -1164,7 +1086,7 @@
 (defn o6register-save-onclick [data-set focus]
   (if (= nil (o6register-validator @data-set))
     (do
-      ;; (swap! o6register-dataset conj @data-set)
+      (swap! o6register-dataset conj @data-set)
       (accountant/navigate! "/"))
     (reset! focus "on")))
 
@@ -1188,14 +1110,6 @@
        update-data focus
        #(o6register-save-onclick update-data focus)])))
 
-;; (defn current-page []
-;;   [:div [(session/get :current-page)]])
-
-(secretary/defroute "/o6register/add" []
-  (session/put! :current-page #'o6register-add-record))
-
-(secretary/defroute "/o6register/update" []
-  (session/put! :current-page #'o6register-upd-record))
 
 
 ;; ---------------------------------------------
@@ -1228,7 +1142,7 @@
                      :name-of-po [[v/required :message "field is required"]]
                      :date-of-decision [[v/required :message "field is required"]]
                      :title [[v/required :message "field is required"]]
-                     :khasranumber [[v/required :message "field is required"]]
+                     :khasra-number [[v/required :message "field is required"]]
                      :khata-khatuni-number [[v/required :message "field is required"]]
                      :name-of-village [[v/required :message "field is required"]]
                      :sub-division-name [[v/required :message "field is required"]]
@@ -1312,10 +1226,10 @@
        [mutation-row :id "Id" "number" data-set focus]
        [mutation-row :mutation-number "Mutation Number" "text" data-set focus ]
        [mutation-row :name-of-party "Name of District" "text" data-set focus ]
-       [mutation-row :date-if-institution "Date if institution" "text" data-set focus ]
+       [mutation-row :date-if-institution "Date if institution" "date" data-set focus ]
        ;; [:select#name-of-po [:option {:value "abc"} "abc"] [:option {:value "def"} "def"]]
        [mutation-row :name-of-po "Name of P.O" "text" data-set focus ]
-       [mutation-row :date-of-decision "Date of Decision" "text" data-set focus]
+       [mutation-row :date-of-decision "Date of Decision" "date" data-set focus]
        [mutation-row :title "Title" "text" data-set focus]
        [mutation-row :khasra-number "Khasra Number" "text" data-set focus]
        [mutation-row :khata-khatuni-number "Khata Khatuni Number" "text" data-set focus]
@@ -1330,38 +1244,10 @@
        [:button.btn.btn-primary {:on-click #(accountant/navigate! "/")} "Cancel"]]]]]])
 
 
-
-(defn o6register-document-template [doc-name data-set focus fun]
-  [:div.container
-   [:div.panel.panel-primary.model-dialog
-    [:div.panel-heading
-     [:h2 doc-name]]
-    [:div.panel-boby
-     [:div.container
-      [:div.form-group
-       [mutation-row :id "Id" "number" data-set focus]
-       [mutation-row :mutation-number "Mutation Number" "text" data-set focus ]
-       [mutation-row :name-of-party "Name of District" "text" data-set focus ]
-       [mutation-row :date-if-institution "Date if institution" "text" data-set focus ]
-       [mutation-row :name-of-po "Name of P.O" "text" data-set focus ]
-       [mutation-row :date-of-decision "Date of Decision" "text" data-set focus]
-       [mutation-row :title "Title" "text" data-set focus]
-       [mutation-row :khasra-number "Khasra Number" data-set focus]
-       [mutation-row :khata-khatuni-number "Khata Khatuni Number" data-set focus]
-       [mutation-row :name-of-village "Name of Village" data-set focus]
-       [mutation-row :sub-division-name "Sub Division Name" data-set focus]
-       [mutation-row :name-of-district "Name of District" data-set focus]
-       [mutation-row :o2-number "02 Number" data-set focus]
-       [mutation-row :o4-number "04 Number" data-set focus]
-       [mutation-row :o6-number "06 Number" data-set focus]
-       [mutation-row :rack-number "Rack Number" data-set focus]
-       [:button.btn.btn-primary {:on-click fun} "Save" ]
-       [:button.btn.btn-primary {:on-click #(accountant/navigate! "/") } "Cancel"]]]]]])
-
 (defn mutation-save-onclick [data-set focus]
   (if (= nil (mutation-validator @data-set))
     (do
-      ;; (swap! mutation-dataset conj @data-set)
+      (swap! mutation-dataset conj @data-set)
       (accountant/navigate! "/"))
     (reset! focus "on")))
 
@@ -1385,12 +1271,3 @@
        update-data
        focus
        #(mutation-save-onclick update-data focus)])))
-
-;; (defn current-page []
-;;   [:div [(session/get :current-page)]])
-
-(secretary/defroute "/mutation/add" []
-  (session/put! :current-page #'mutation-add-record))
-
-(secretary/defroute "/mutation/update" []
-  (session/put! :current-page #'mutation-upd-record))
