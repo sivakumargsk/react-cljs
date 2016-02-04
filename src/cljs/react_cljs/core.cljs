@@ -55,16 +55,13 @@
       [records/o2register-table @records/o2register-dataset]]
      [:div#o4register.tab-pane.fade
       [:center [:h3 "O4 Register"]]
-      [records/o4register-table @records/o4register-dataset]
-      ]
+      [records/o4register-table @records/o4register-dataset]]
      [:div#o6register.tab-pane.fade
       [:center [:h3 "O6 Register"]]
       [records/o6register-table @records/o6register-dataset]]
      [:div#mutation.tab-pane.fade
       [:center [:h3 "Mutation Records"]]
-      [records/mutation-table @records/mutation-dataset]
-      ]
-     ]]])
+      [records/mutation-table @records/mutation-dataset]]]]])
 
 
 (defn home-page []
