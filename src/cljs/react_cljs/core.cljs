@@ -72,82 +72,83 @@
 
 ;; -------------------------
 ;; home-Routes
-(secretary/defroute "/" []
+(defroute "/" []
   (session/put! :current-page #'home-page))
 
 
 ;; ------ masavi ------------
-(secretary/defroute "/masavi/add" []
+
+(defroute "/masavi/add" []
   (session/put! :current-page #'records/masavi-add-record))
 
-(secretary/defroute "/masavi/update" []
+(defroute "/masavi/update" []
   (session/put! :current-page #'records/masavi-upd-record))
 
 
 
 ;; ------- consolidation -------
-(secretary/defroute "/consolidation/add" []
+(defroute "/consolidation/add" []
   (session/put! :current-page #'records/consolidation-add-record))
 
-(secretary/defroute "/consolidation/update" []
+(defroute "/consolidation/update" []
   (session/put! :current-page #'records/consolidation-upd-record))
 
 
 ;; ------- filed form-----------
-(secretary/defroute "/fieldform/add" []
+(defroute "/fieldform/add" []
   (session/put! :current-page #'records/fieldform-add-record))
 
-(secretary/defroute "/fieldform/update" []
+(defroute "/fieldform/update" []
   (session/put! :current-page #'records/fieldform-upd-record))
 
 
 ;; ---------Khasragirdwani-------
-(secretary/defroute "/khasragirdwani/add" []
+(defroute "/khasragirdwani/add" []
   (session/put! :current-page #'records/khasragirdwani-add-record))
 
-(secretary/defroute "/khasragirdwani/update" []
+(defroute "/khasragirdwani/update" []
   (session/put! :current-page #'records/khasragirdwani-upd-record))
 
 ;; --------Revenuerecord---------
-(secretary/defroute "/revenuerecord/add" []
+(defroute "/revenuerecord/add" []
   (session/put! :current-page #'records/revenuerecord-add-record))
 
-(secretary/defroute "/revenuerecord/update" []
+(defroute "/revenuerecord/update" []
   (session/put! :current-page #'records/revenuerecord-upd-record))
 
 ;; -------misc-----------------
-(secretary/defroute "/misc/add" []
+(defroute "/misc/add" []
   (session/put! :current-page #'records/misc-add-record))
 
-(secretary/defroute "/misc/update" []
+(defroute "/misc/update" []
   (session/put! :current-page #'records/misc-upd-record))
 
 ;; -------o2 register----------
-(secretary/defroute "/o2register/add" []
+(defroute "/o2register/add" []
   (session/put! :current-page #'records/o2register-add-record))
 
-(secretary/defroute "/o2register/update" []
+(defroute "/o2register/update" []
   (session/put! :current-page #'records/o2register-upd-record))
 
 ;; --------o4 register---------
-(secretary/defroute "/o4register/add" []
+(defroute "/o4register/add" []
   (session/put! :current-page #'records/o4register-add-record))
 
-(secretary/defroute "/o4register/update" []
+(defroute "/o4register/update" []
   (session/put! :current-page #'records/o4register-upd-record))
 
 ;; -------o6 register----------
-(secretary/defroute "/o6register/add" []
+(defroute "/o6register/add" []
   (session/put! :current-page #'records/o6register-add-record))
 
-(secretary/defroute "/o6register/update" []
+(defroute "/o6register/update" []
   (session/put! :current-page #'records/o6register-upd-record))
 
 ;; ------mutation -------------
-(secretary/defroute "/mutation/add" []
+(defroute "/mutation/add" []
   (session/put! :current-page #'records/mutation-add-record))
 
-(secretary/defroute "/mutation/update" []
+(defroute "/mutation/update" []
   (session/put! :current-page #'records/mutation-upd-record))
 
 
