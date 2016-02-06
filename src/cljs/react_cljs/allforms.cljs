@@ -40,34 +40,39 @@
                             :rack-location "B"}]))
 
 
+(defn show-record [component]
+  (reagent/render-component component (.getElementById js/document "record-add-upd")))
+
 (defn masavi-table [all-documents]
   [:div
-   [:button.btn.btn-primary {:on-click #(accountant/navigate! "/masavi/add")} "add-new"]
-   [:div.box-body
-    [:table.table.table-striped
-     [:thead
-      [:tr
-       [:th "S.No"]
-       [:th "Village Name"]
-       [:th "Title"]
-       [:th "Tehsil"]
-       [:th "Year"]
-       [:th "Rack Location"]
-       [:th "Update"]
-       [:th "Delete"]]]
-     [:tbody
-      (for [doc all-documents]
-        ^{:key (doc :id)}
-        [:tr
-         [:td (doc :s-no)]
-         [:td (doc :village-name)]
-         [:td (doc :title)]
-         [:td (doc :tehsil)]
-         [:td (doc :year)]
-         [:td (doc :rack-location)]
-         [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
-                {:on-click #(accountant/navigate! "/masavi/update")}]]
-         [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]])
+   [:div.page-header [:center [:h3 "Masavi Records"]]]
+   [:div {:id "record-add-upd"}
+    [:button.btn.btn-primary {:on-click #(show-record  [:div [masavi-add-record]])} "add-new"]
+    [:div.box-body
+     [:table.table.table-striped
+      [:thead
+       [:tr
+        [:th "S.No"]
+        [:th "Village Name"]
+        [:th "Title"]
+        [:th "Tehsil"]
+        [:th "Year"]
+        [:th "Rack Location"]
+        [:th "Update"]
+        [:th "Delete"]]]
+      [:tbody
+       (for [doc all-documents]
+         ^{:key (doc :id)}
+         [:tr
+          [:td (doc :s-no)]
+          [:td (doc :village-name)]
+          [:td (doc :title)]
+          [:td (doc :tehsil)]
+          [:td (doc :year)]
+          [:td (doc :rack-location)]
+          [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
+                 {:on-click #(show-record masavi-upd-record)}]]
+          [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]]])
 
 (defn masavi-validator [data-set]
   (first (b/validate data-set
@@ -98,8 +103,9 @@
 (defn masavi-save-onclick [data-set focus]
   (if (= nil (masavi-validator @data-set))
     (do
-      (swap! masavi-dataset conj @data-set)
-      (accountant/navigate! "/"))
+      ;; (swap! masavi-dataset conj @data-set)
+      (accountant/navigate! "#/masavi")
+      (show-record (masavi-table @masavi-dataset)))
     (reset! focus "on")))
 
 
@@ -119,7 +125,8 @@
        [masavi-row :year "Year" "date" data-set focus]
        [masavi-row :rack-location "Rack Location" "text" data-set focus]
        [:button.btn.btn-primary {:on-click fun} "Save" ]
-       [:button.btn.btn-primary {:on-click #(accountant/navigate! "/")} "Cancel"]]]]]])
+       [:button.btn.btn-primary {:on-click #(do (accountant/navigate! "#/masavi")
+                                                (show-record (masavi-table @masavi-dataset)))} "Cancel"]]]]]])
 
 
 (defn masavi-add-record []
@@ -161,7 +168,8 @@
 
 (defn consolidation-table [all-documents]
   [:div
-   [:button.btn.btn-primary {:on-click #(accountant/navigate! "/consolidation/add")} "add-new"]
+   [:div.page-header [:center [:h3 "Consolidation Records"]]]
+   [:button.btn.btn-primary {:on-click #(accountant/navigate! "#/consolidation/add")} "add-new"]
    [:div.box-body
     [:table.table.table-striped
      [:thead
@@ -185,7 +193,7 @@
          [:td (doc :year)]
          [:td (doc :rack-location)]
          [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
-                {:on-click #(accountant/navigate! "/consolidation/update")}]]
+                {:on-click #(accountant/navigate! "#/consolidation/update")}]]
          [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]])
 
 (defn consolidation-validator [data-set]
@@ -281,7 +289,8 @@
 
 (defn fieldform-table [all-documents]
   [:div
-   [:button.btn.btn-primary {:on-click #(accountant/navigate! "/fieldform/add")} "add-new"]
+   [:div.page-header [:center [:h3 "Field Form Records"]]]
+   [:button.btn.btn-primary {:on-click #(accountant/navigate! "#/fieldform/add")} "add-new"]
    [:div.box-body
     [:table.table.table-striped
      [:thead
@@ -305,7 +314,7 @@
          [:td (doc :year)]
          [:td (doc :rack-location)]
          [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
-                {:on-click #(accountant/navigate! "/fieldform/update")}]]
+                {:on-click #(accountant/navigate! "#/fieldform/update")}]]
          [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]])
 
 (defn fieldform-validator [data-set]
@@ -400,7 +409,8 @@
 
 (defn khasragirdwani-table [all-documents]
   [:div
-   [:button.btn.btn-primary {:on-click #(accountant/navigate! "/khasragirdwani/add")} "add-new"]
+   [:div.page-header [:center [:h3 "Khasragirdwani Records"]]]
+   [:button.btn.btn-primary {:on-click #(accountant/navigate! "#/khasragirdwani/add")} "add-new"]
    [:div.box-body
     [:table.table.table-striped
      [:thead
@@ -424,7 +434,7 @@
          [:td (doc :year)]
          [:td (doc :rack-location)]
          [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
-                {:on-click #(accountant/navigate! "/khasragirdwani/update")}]]
+                {:on-click #(accountant/navigate! "#/khasragirdwani/update")}]]
          [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]])
 
 (defn khasragirdwani-validator [data-set]
@@ -519,7 +529,8 @@
 
 (defn revenuerecord-table [all-documents]
   [:div
-   [:button.btn.btn-primary {:on-click #(accountant/navigate! "/revenuerecord/add")} "add-new"]
+   [:div.page-header [:center [:h3 "Revenue Records"]]]
+   [:button.btn.btn-primary {:on-click #(accountant/navigate! "#/revenuerecord/add")} "add-new"]
    [:div.box-body
     [:table.table.table-striped
      [:thead
@@ -543,7 +554,7 @@
          [:td (doc :year)]
          [:td (doc :rack-location)]
          [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
-                {:on-click #(accountant/navigate! "/revenuerecord/update")}]]
+                {:on-click #(accountant/navigate! "#/revenuerecord/update")}]]
          [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]])
 
 (defn revenuerecord-validator [data-set]
@@ -639,7 +650,8 @@
 
 (defn misc-table [all-documents]
   [:div
-   [:button.btn.btn-primary {:on-click #(accountant/navigate! "/misc/add")} "add-new"]
+   [:div.page-header [:center [:h3 "Misc Records"]]]
+   [:button.btn.btn-primary {:on-click #(accountant/navigate! "#/misc/add")} "add-new"]
    [:div.box-body
     [:table.table.table-striped
      [:thead
@@ -663,7 +675,7 @@
          [:td (doc :dispatched-date)]
          [:td (doc :received-date)]
          [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
-                {:on-click #(accountant/navigate! "/misc/update")}]]
+                {:on-click #(accountant/navigate! "#/misc/update")}]]
          [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]])
 
 (defn misc-validator [data-set]
@@ -772,7 +784,8 @@
 
 (defn o2register-table [all-documents]
   [:div
-   [:button.btn.btn-primary {:on-click #(accountant/navigate! "/o2register/add")} "add-new"]
+   [:div.page-header [:center [:h3 "O2 Register Records"]]]
+   [:button.btn.btn-primary {:on-click #(accountant/navigate! "#/o2register/add")} "add-new"]
    [:div.box-body
     [:table.table.table-striped
      [:thead
@@ -804,7 +817,7 @@
          [:td (doc :starting-year-of-o2-register)]
          [:td (doc :ending-year-of-o2-register)]
          [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
-                {:on-click #(accountant/navigate! "/o2register/update")}]]
+                {:on-click #(accountant/navigate! "#/o2register/update")}]]
          [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]])
 
 
@@ -904,7 +917,8 @@
 
 (defn o4register-table [all-documents]
   [:div
-   [:button.btn.btn-primary {:on-click #(accountant/navigate! "/o4register/add")} "add-new"]
+   [:div.page-header [:center [:h3 "O4 Register Records"]]]
+   [:button.btn.btn-primary {:on-click #(accountant/navigate! "#/o4register/add")} "add-new"]
    [:div.box-body
     [:table.table.table-striped
      [:thead
@@ -930,7 +944,7 @@
          [:td (doc :revenue-rent-of-share-of-plots-transferred)]
          [:td (doc :name-and-description-of-persons-removed)]
          [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
-                {:on-click #(accountant/navigate! "/o4register/update")}]]
+                {:on-click #(accountant/navigate! "#/o4register/update")}]]
          [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]])
 
 
@@ -1020,6 +1034,7 @@
 
 (defn o6register-table [all-documents]
   [:div
+   [:div.page-header [:center [:h3 "O6 Register Records"]]]
    [:button.btn.btn-primary {:on-click #(accountant/navigate! "/o6register/add")} "add-new"]
    [:div.box-body
     [:table.table.table-striped
@@ -1044,7 +1059,7 @@
          [:td (doc :name-of-village)]
          [:td (doc :name-of-person-whom-recovery-is-made)]
          [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
-                {:on-click #(accountant/navigate! "/o6register/update")}]]
+                {:on-click #(accountant/navigate! "#/o6register/update")}]]
          [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]])
 
 
@@ -1154,7 +1169,8 @@
 
 (defn mutation-table [all-documents]
   [:div
-   [:button.btn.btn-primary {:on-click #(accountant/navigate! "/mutation/add")} "add-new"]
+   [:div.page-header [:center [:h3 "Mutation Records"]]]
+   [:button.btn.btn-primary {:on-click #(accountant/navigate! "#/mutation/add")} "add-new"]
    [:div.box-body
     [:table.table.table-striped
      [:thead
@@ -1197,7 +1213,7 @@
          [:td (doc :o6-number)]
          [:td (doc :rack-number)]
          [:td  [:button.btn.btn-success.btn-sm.glyphicon.glyphicon-edit
-                {:on-click #(accountant/navigate! "/mutation/update")}]]
+                {:on-click #(accountant/navigate! "#/mutation/update")}]]
          [:td  [:button.btn.btn-danger.btn-sm.glyphicon.glyphicon-remove]]])]]]])
 
 (defn mutation-row [id label ttype data-set focus]
