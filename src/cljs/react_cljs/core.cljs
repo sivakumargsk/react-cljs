@@ -51,21 +51,30 @@
          (for [[k v] items]
            [list-item id k v selections])]]])))
 
-;; ---------------------------------------------------------------------------------
+;; -------------------------------------------------------------------
 ;; pages
 
-(defn save-doc []
-  (POST (str js/context "/save")
-        {:params (:doc @state)
-         :handler (fn [_] (swap! state assoc :saved? true))}))
+;;----------------------
+;; ajax.core
 
+(defn handler [response]
+  (.log js/console (str response)))
+
+(defn error-handler [{:keys [status status-text]}]
+  (.log js/console (str "something bad happened: " status " " status-text)))
+
+
+(defn save-doc []
+  (POST "/save"
+        {:params (:doc @state)
+         :handler handler
+         :error-handler error-handler}))
 
 (defn home []
   [:div
    [:div.page-header [:h1 "Reagent Form"]]
    [text-input :first-name "First name"]
    [text-input :last-name "Last Name"]
-
    [selection-list :favorite-drinks "Favorite drinks"
     [:coffee "Coffee"]
     [:beer "Beer"]
