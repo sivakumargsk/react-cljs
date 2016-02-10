@@ -2,8 +2,9 @@
   (:require [goog.events :as events]
             [goog.dom :as dom]
             [goog.history.EventType :as EventType]
+            [goog.net.XhrIo :as xhr]
             [reagent.core :as reagent :refer [atom render]]
-            [ajax.core :refer [POST]]))
+            [ajax.core :refer [GET  POST]]))
 
 
 (def state (atom {:doc {} :saved? false}))
@@ -38,24 +39,18 @@
                                 (map first))))]
     [:li {:class (str "list-group-item"
                       (if (k @selections)  " active"))
-          :on-click handle-click!}
-     v]))
+          :on-click handle-click!} v]))
 
 (defn selection-list [id label & items]
   (let [selections (->> items (map (fn [[k]] [k false])) (into {}) atom)]
     (fn []
       [:div.row
-       [:div.col-md-2 [:span label]]
+       [:div.col-md-2 [:label label]]
        [:div.col-md-5
         [:div.row
          (for [[k v] items]
            [list-item id k v selections])]]])))
 
-;; -------------------------------------------------------------------
-;; pages
-
-;;----------------------
-;; ajax.core
 
 (defn handler [response]
   (.log js/console (str response)))
@@ -63,31 +58,42 @@
 (defn error-handler [{:keys [status status-text]}]
   (.log js/console (str "something bad happened: " status " " status-text)))
 
-
 (defn save-doc []
-  (POST "/save"
-        {:params (:doc @state)
-         :handler handler
+  (GET "/save"
+        {:handler handler
          :error-handler error-handler}))
 
-(defn home []
-  [:div
-   [:div.page-header [:h1 "Reagent Form"]]
-   [text-input :first-name "First name"]
-   [text-input :last-name "Last Name"]
-   [selection-list :favorite-drinks "Favorite drinks"
-    [:coffee "Coffee"]
-    [:beer "Beer"]
-    [:crab-juice "Crab juice"]]
+(defn save-doc1 []
+  (GET "/save"
+      {:handler (fn [res] (swap! state assoc :saved? res))
+       :error-handler error-handler}))
 
-   (if (:saved? @state)
-     [:p "Saved"]
-     [:button {:type "submit"
+
+(defn home []
+  [:div.container
+   [:div.page-header [:h1 "Cljs-ajax (Request and Response)"]]
+   [:div.form-group
+    [text-input :first-name "First name"]]
+   [:div.form-group
+    [text-input :last-name "Last Name"]]
+   [:div.form-group
+    [selection-list :favorite-drinks "Favorite drinks"
+     [:coffee "Coffee"]
+     [:beer "Beer"]
+     [:crab-juice "Crab juice"]]]
+     ;; [:div [:span (str @state)]]
+   [:div.form-group
+    (if (:saved? @state)
+     [:b [:p "Saved"]]
+     [:button.btn.btn-primary {:type "submit"
                :class "btn btn-default"
-               :onClick save-doc}
-      "Submit"])])
+               :onClick save-doc1}
+      "Submit"])]])
+
 
 (defn render-home []
   (reagent/render-component [home]
                             (.getElementById js/document "app")))
 (render-home)
+
+

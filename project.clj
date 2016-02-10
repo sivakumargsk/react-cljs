@@ -11,6 +11,7 @@
 
                  ;; Frontend dependencies
                  [org.clojure/clojurescript "1.7.170"]
+                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [hiccup "1.0.5"]
                  [prismatic/dommy "1.1.0"]
                  [ring/ring-core "1.4.0" :exclusions [javax.servlet/servlet-api]]
@@ -21,7 +22,6 @@
                  [bouncer "1.0.0"]
                  [reagent "0.5.1"]
                  [cljs-ajax "0.5.3"]
-                 [noir-exception "0.2.5"]
                  ]
   :source-paths ["src/clj"]
   :main react-cljs.core
