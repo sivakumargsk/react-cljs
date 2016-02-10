@@ -24,16 +24,14 @@
               :text-decoration "line-through"})
 
 
-(def todo-list  (reagent/atom [{:task-no 1 :task-name "Learning Clojure From Ground up" :done false}
+(def todo-list  (atom  [{:task-no 1 :task-name "Learning Clojure From Ground up" :done false}
                      {:task-no 2 :task-name "Four Clojure 1 to 10 Tasks" :done false}
                      {:task-no 3 :task-name "Learning bash Commands" :done false}]))
 
-
-(defn tasks-list [list]
+(defn tasks-list []
   [:div
-  (for [item list]
+  (for [item @todo-list]
     ^{:key (:task-no item)}
-    
     [:div.row
      [:div.col-sm-1 [:input {:type "checkbox" :style {:width "25px" :height "25px"}}]]
      [:div.col-sm-9 [:p {:style p-style}  (:task-name item)]]
@@ -53,7 +51,7 @@
     [head]
     [:div
      [:hr]
-     [tasks-list todo-list]
+     [tasks-list]
      [:hr]]]])
 
 (defn render-sample []
@@ -62,3 +60,5 @@
 
 
 (render-sample)
+
+
