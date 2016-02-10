@@ -8,14 +8,6 @@
   (:import goog.History))
 
 
-(def all-tasks (atom [{:task-no 1
-                       :task-name "Learning Clojure from ground up"
-                       :completed? false}
-                      {:task-no 2
-                       :task-name "Learning bash shell commands"
-                       :completed? false}]))
-
-
 (def p-style {:font-size "20px"
               :font-weight "bold"
               :color "grey"
@@ -38,21 +30,30 @@
      [:div.col-sm-2 [:button.btn.btn-default
                      [:span.glyphicon.glyphicon-remove {:aria-hidden true}]]]])])
 
-(defn head []
+(defn get-input-text[id]
+  (.-value (.getElementById js/document id)))
+
+(defn add []
+  (swap! todo-list conj {:task-no (inc (:task-no (last @todo-list)))
+                         :task-name (get-input-text "app")
+                         :done false}))
+
+(defn head [fun]
   [:div.form-group
    [:div.row
-     [:div.col-sm-10 [:input.form-control {:type "text"}]]
-     [:div.col-sm-2 [:button.btn.btn-primary {} "Add"]]]])
+     [:div.col-sm-10 [:input.form-control {:type "text" :id "add" }]]
+     [:div.col-sm-2 [:button.btn.btn-primary {:on-click fun} "Add"]]]])
 
 (defn home []
   [:div.container
    [:div.col-sm-8
     [:div.page-header [:h2 "To Do List"]]
-    [head]
+    [head add]
     [:div
      [:hr]
      [tasks-list]
-     [:hr]]]])
+     [:hr]]
+    [:span (str @todo-list)]]])
 
 (defn render-sample []
   (reagent/render-component [home]
