@@ -2,6 +2,8 @@
 
 FIXME: description
 
+![alt text](pics/todo.png "Todo Application")
+
 ## Installation
 
 Download from http://example.com/FIXME.
