@@ -4,15 +4,14 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [
-  				 [org.clojure/clojure "1.7.0"]
-                 ;;Backend dependencies
+                 [org.clojure/clojure "1.7.0"]
                  [compojure "1.4.0"]
                  [secretary "1.2.3"]
-
-                 ;; Frontend dependencies
-                 [org.clojure/clojurescript "1.7.170"]
+                 [org.clojure/clojurescript "1.7.228"]
                  [hiccup "1.0.5"]
                  [prismatic/dommy "1.1.0"]
+                 [reagent "0.5.0-alpha3" :exclusions [cljsjs/react]]
+                 [cljsjs/react-with-addons "0.12.2-4"]
                  [ring/ring-core "1.4.0" :exclusions [javax.servlet/servlet-api]]
                  [ring/ring-servlet "1.4.0" :exclusions [javax.servlet/servlet-api]]
                  [ring/ring-defaults "0.1.5" :exclusions [javax.servlet/servlet-api]]
@@ -20,7 +19,7 @@
                  [clj-time "0.11.0"]
                  [bouncer "1.0.0"]
                  [reagent "0.5.1"]
-                ]
+                 ]
   :source-paths ["src/clj"]
   :main react-cljs.core
   :plugins [
