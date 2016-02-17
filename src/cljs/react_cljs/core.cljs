@@ -59,12 +59,12 @@
   (.log js/console (str "something bad happened: " status " " status-text)))
 
 (defn save-doc []
-  (GET "/save"
+  (GET "#/save"
         {:handler handler
          :error-handler error-handler}))
 
 (defn save-doc1 []
-  (GET "/save"
+  (GET "#/save"
       {:handler (fn [res] (swap! state assoc :saved? res))
        :error-handler error-handler}))
 
@@ -95,5 +95,4 @@
   (reagent/render-component [home]
                             (.getElementById js/document "app")))
 (render-home)
-
 
