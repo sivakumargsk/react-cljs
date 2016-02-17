@@ -1,36 +1,5 @@
-# react-cljs
+# Routing Secrectary branch
 
-FIXME: description
+In this branch i done practice on this link
 
-## Installation
-
-Download from http://example.com/FIXME.
-
-## Usage
-
-FIXME: explanation
-
-    $ java -jar react-cljs-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2016 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+http://yogthos.net/posts/2014-08-14-Routing-With-Secretary.html
