@@ -1,36 +1,8 @@
-# react-cljs
+# react-bootstrap-branch
 
-FIXME: description
+In this branch i converting to react-components into reagent-component using this function --> (reagent.core/adapt-react-class)
 
-## Installation
+# References
+1. React-components link is [here] (https://react-bootstrap.github.io/components.html)
 
-Download from http://example.com/FIXME.
-
-## Usage
-
-FIXME: explanation
-
-    $ java -jar react-cljs-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2016 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+2. Using react bootstrap components in Reagent [here] (http://nicolovaligi.com/boostrap-components-reagent-clojurescript.html)
