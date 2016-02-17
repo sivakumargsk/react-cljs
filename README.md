@@ -1,6 +1,6 @@
 # react-bootstrap-branch
 
-In this branch i converting to react-components into reagent-component using this function --> (reagent.core/adapt-react-class)
+In this branch i converting react-components into reagent-component using this function --> (reagent.core/adapt-react-class)
 
 # References
 1. React-components link is [here] (https://react-bootstrap.github.io/components.html)
