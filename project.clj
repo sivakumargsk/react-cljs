@@ -23,6 +23,7 @@
                  [bouncer "1.0.0"]
                  [venantius/accountant "0.1.6"
                   :exclusions [org.clojure/tools.reader]]
+                 [cljsjs/react-bootstrap "0.25.1-0" :exclusions [org.webjars.bower/jquery]]
                  ]
   :source-paths ["src/clj"]
   :main react-cljs.core
