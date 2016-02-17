@@ -15,8 +15,8 @@
   (:import goog.History))
 
 
-(def button-tool-bar (reagent/adapt-react-class (aget js/ReactBootstrap "ButtonToolbar")))
-(def button (reagent/adapt-react-class (aget js/ReactBootstrap "Button")))
+;; (def button-tool-bar (reagent/adapt-react-class (aget js/ReactBootstrap "ButtonToolbar")))
+;; (def button (reagent/adapt-react-class (aget js/ReactBootstrap "Button")))
 
 (defn show-record [component]
   (reagent/render-component component (.getElementById js/document "record")))
@@ -30,44 +30,44 @@
    [:div.col-md-2
     [:div {:class "well"
           :style {:max-width 400 :margin "0 auto 10px"}}
-     [button {:bs-size "large"
-              :block true
+     [:button {:type "button"
+               :class "btn btn-primary btn-lg btn-block"
               :on-click #(do (accountant/navigate! "#/masavi")
                              (show-record (records/masavi-table @records/masavi-dataset)))} "Masavi"]
-     [button {:bs-size "large"
-              :block true
+     [:button {:type "button"
+               :class "btn btn-default btn-lg btn-block"
               :on-click #(do (accountant/navigate! "#/consolidation")
                              (show-record (records/consolidation-table @records/consolidation-dataset)))} "Consolidation"]
-     [button {:bs-size "large"
-              :block true
+     [:button {:type "button"
+               :class "btn btn-primary btn-lg btn-block"
               :on-click #(do (accountant/navigate! "#/fieldform")
                              (show-record (records/fieldform-table @records/fieldform-dataset)))} "Field Form"]
-     [button {:bs-size "large"
-              :block true
+     [:button {:type "button"
+               :class "btn btn-default btn-lg btn-block"
               :on-click #(do (accountant/navigate! "#/khasragirdwani")
                              (show-record (records/khasragirdwani-table @records/khasragirdwani-dataset)))} "Khasra Girdwani"]
-     [button {:bs-size "large"
-              :block true
+     [:button {:type "button"
+               :class "btn btn-primary btn-lg btn-block"
               :on-click #(do (accountant/navigate! "#/revenuerecord")
                              (show-record (records/revenuerecord-table @records/revenuerecord-dataset)))} "Revenue Record"]
-     [button {:bs-size "large"
-              :block true
+     [:button {:type "button"
+               :class "btn btn-default btn-lg btn-block"
               :on-click #(do (accountant/navigate! "#/misc")
                              (show-record (records/misc-table @records/misc-dataset)))} "Misc Records"]
-     [button {:bs-size "large"
-              :block true
+     [:button {:type "button"
+               :class "btn btn-primary  btn-lg btn-block"
               :on-click #(do (accountant/navigate! "#/o2register")
                              (show-record (records/o2register-table @records/o2register-dataset)))} "O2 Register"]
-     [button {:bs-size "large"
-              :block true
+     [:button {:type "button"
+               :class "btn btn-default btn-lg btn-block"
               :on-click #(do (accountant/navigate! "#/o4register")
                              (show-record (records/o4register-table @records/o4register-dataset)))} "O4 Register"]
-     [button {:bs-size "large"
-              :block true
+     [:button {:type "button"
+               :class "btn btn-primary btn-lg btn-block"
               :on-click #(do (accountant/navigate! "#/o6register")
                              (show-record (records/o6register-table @records/o6register-dataset)))} "O6 Register"]
-     [button {:bs-size "large"
-              :block true
+     [:button {:type "button"
+               :class "btn btn-default btn-lg btn-block"
               :on-click #(do (accountant/navigate! "#/mutation")
                              (show-record (records/mutation-table @records/mutation-dataset)))} "Mutation Records"]]]
   [:div.col-md-10 {:id "record"}]])
