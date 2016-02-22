@@ -3,7 +3,9 @@
   (:require [goog.events :as events]
             [goog.dom :as dom]
             [goog.history.EventType :as EventType]
-            [reagent.core :as r])
+            [reagent.core :as r]
+            [cljsjs.react-select]
+            [cljsjs.react-bootstrap])
   (:import goog.History))
 
 
@@ -112,10 +114,36 @@
 (defn could-be-jsx []
   (r/create-element react-comp #js{:name "world"}))
 
+;; --------------------------------------------------
+(def button-tool-bar (r/adapt-react-class (aget js/ReactBootstrap "ButtonToolbar")))
+(def button (r/adapt-react-class (aget js/ReactBootstrap "Button")))
+
+(defn buttons []
+  [:div
+   [:div.page-header [:h3[:b "Buttons"]]]
+   [button-tool-bar
+    [button "Default"]
+    [button {:bs-style "primary"} "Primary"]
+    [button {:bs-style "success"} "Success"]
+    [button {:bs-style "info"} "info"]
+    [button {:bs-style "warning"} "Warning"]
+    [button {:bs-style "danger"} "Danger"]
+    [button {:bs-style "link"} "Link"]]])
+
+
+;; --------------------------------------------------
+;; react select -----> reagent select-component
+
+;; (def r-select (r/adapt-react-class  (aget js/ReactSelect "Select")))
+
+;; (defn component []
+;;   [:div
+;;    [r-select]])
+
 
 
 (defn render-sample []
-  (r/render-component [adapted]
+  (r/render-component [buttons]
                             (.getElementById js/document "app")))
 
 (render-sample)
