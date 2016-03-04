@@ -7,56 +7,52 @@
 </head>
 
 <body>
-  <div id = "app"> </div>
-  <script>
+    <div id = "app"> </div>
+    <script>
 
-   function length(){
-     var historyLength = window.history.length;
-     console.log (historyLength);
-   }
+     function length(){
+         var historyLength = window.history.length;
+         console.log (historyLength);
+     }
 
-   function back() {
-     window.history.back();
-     // window.history.go(-1);
-   }
+     function back() {
+         window.history.back();
+         // window.history.go(-1);
+     }
 
-   function forward(){
-     window.history.forward();
-     // window.history.go(1);
-   }
+     function forward(){
+         window.history.forward();
+         // window.history.go(1);
+     }
 
-   function push() {
-     var key = document.getElementById("push").value;
-     var stateObj = {};
-     stateObj[key] = key;
-     history.pushState(stateObj, key, key.concat(".html"));
-   }
+     function push() {
+         var key = document.getElementById("push").value;
+         var stateObj = {};
+         stateObj[key] = key;
+         history.pushState(stateObj, key, key.concat(".html"));
+     }
 
-   function go()  {
-     var num = parseInt(document.getElementById("go").value);
-     window.history.go(num);
-   }
+     function go()  {
+         var num = parseInt(document.getElementById("go").value);
+         window.history.go(num);
+     }
 
-   function presentState()  {
-     var currentState = history.state;
-     console.log (currentState);
-   }
-  </script>
-
-  <div class = "container">
-    <a href="http://www.google.com"> google </a></br>
-    <input type = "button" onclick "back()" value = "Back"></input>
-    <input type = "button" onclick "forward()" value = "Forward"></input></br>
-
-    <input id = "push" type = "text" ></input>
-    <input type = "button" onclick= "push()" value = "PUSH"></input></br>
-
-    <input id = "go" type = "text" ></input>
-    <input type = "button" onclick = "go()" value = "GO"></input></br>
-
-    <input type = "button" onclick = "length()" value = "length"></input>
-    <input type = "button" onclick = "presentState()" value = "Present State"></input>
-  </div>
-  <script src="/static/js/app.js"></script>
+     function presentState()  {
+         var currentState = history.state;
+         console.log (currentState);
+     }
+    </script>
+    <div class = "container">
+        <a href="http://www.google.com"> google </a></br>
+        <input type = "button" onclick = "back();" value = "Back"></input>
+        <input type = "button" onclick = "forward();" value = "Forward"></input></br>
+        <input id = "push" type = "text" ></input>
+        <input type = "button" onclick = "push();" value = "PUSH"></input></br>
+        <input id = "go" type = "text" ></input>
+        <input type = "button" onclick = "go();" value = "GO"></input></br>
+        <input type = "button" onclick = "length();" value = "length"></input>
+        <input type = "button" onclick = "presentState();" value = "Present State"></input>
+    </div>
+    <script src="/static/js/app.js"></script>
 </body>
 </html>
