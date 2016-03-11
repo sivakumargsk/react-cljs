@@ -1,4 +1,3 @@
-# Reagent Examples in Re-frame
-  		  
-![alt text](pics/reagent-reframe.png "To-Do list pic")
+# Reagent Examples in Re-Frame
 
+![alt text](pics/reagent-reframe.png "Reframe ex Application")
