@@ -1,21 +1,121 @@
 (ns react-cljs.core
-  (:require-macros [secretary.core :refer [defroute]])
-  (:require [goog.events :as events]
-            [goog.dom :as dom]
-            [goog.history.EventType :as EventType]
-            [bouncer.core :as b]
-            [bouncer.validators :as v]
-            [secretary.core :as secretary]
-            [reagent.core :as reagent :refer [atom render]])
-  (:import goog.History))
+  (:require-macros [reagent.ratom :refer [reaction]])
+  (:require [reagent.core :as reagent]
+            [re-frame.core :refer [register-handler
+                                   path
+                                   register-sub
+                                   dispatch
+                                   dispatch-sync
+                                   subscribe]]))
 
-(defn home []
-  [:div.pageheader
-   [:h2 "Hello World"]])
+;; trigger a dispatch every second
+(defonce time-updater (js/setInterval
+                        #(dispatch [:timer (js/Date.)]) 1000))
 
-(defn render-sample []
-  (reagent/render-component [home]
-                            (.getElementById js/document "app")))
+(def initial-state
+  {:timer (js/Date.)
+   :time-color "#f34"})
 
 
-(render-sample)
+;; -- Event Handlers ----------------------------------------------------------
+
+
+(register-handler                 ;; setup initial state
+  :initialize                     ;; usage:  (dispatch [:initialize])
+  (fn
+    [db _]
+    (merge db initial-state)))    ;; what it returns becomes the new state
+
+
+(register-handler
+  :time-color                     ;; usage:  (dispatch [:time-color 34562])
+  (path [:time-color])            ;; this is middleware
+  (fn
+    [time-color [_ value]]        ;; path middleware adjusts the first parameter
+    value))
+
+
+(register-handler
+  :timer
+  (fn
+    ;; the first item in the second argument is :timer the second is the
+    ;; new value
+    [db [_ value]]
+    (assoc db :timer value)))    ;; return the new version of db
+
+
+;; -- Subscription Handlers ---------------------------------------------------
+
+
+(register-sub
+  :timer
+  (fn
+    [db _]                       ;; db is the app-db atom
+    (reaction (:timer @db))))    ;; wrap the computation in a reaction
+
+
+(register-sub
+  :time-color
+  (fn
+    [db _]
+    (reaction (:time-color @db))))
+
+
+;; -- View Components ---------------------------------------------------------
+
+(defn greeting
+  [message]
+  [:h1 message])
+
+
+(defn clock
+  []
+  (let [time-color (subscribe [:time-color])
+        timer (subscribe [:timer])]
+
+    (fn clock-render
+        []
+        (let [time-str (-> @timer
+                           .toTimeString
+                           (clojure.string/split " ")
+                           first
+                           )
+              style {:style {:color @time-color}}]
+             [:div.page-header style [:h2 time-str]]))))
+
+
+(defn color-input
+  []
+  (let [time-color (subscribe [:time-color])]
+
+    (fn
+      []
+      [:div
+       "Time color: "
+       [:div.row
+       [:div.col-sm-8
+        [:input.form-control {:type "text"
+                              :value @time-color
+                              :on-change #(dispatch
+                                           [:time-color (-> % .-target .-value)])}]]
+       [:div.col-sm-4
+        [:button.btn.btn-primary {:on-click #(dispatch [:initialize])} "Initial Color"]]]])))
+  
+  (defn simple-example
+  []
+  [:div.container
+   [greeting "Hello world, it is now"]
+   [clock]
+   [color-input]])
+
+
+;; -- Entry Point -------------------------------------------------------------
+
+
+(defn run
+  []
+  (dispatch-sync [:initialize])
+  (reagent/render [simple-example]
+                  (js/document.getElementById "app")))
+
+(run)

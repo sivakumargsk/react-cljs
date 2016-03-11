@@ -20,6 +20,7 @@
                  [clj-time "0.11.0"]
                  [bouncer "1.0.0"]
                  [reagent "0.5.1"]
+                 [re-frame "0.7.0-alpha-3"]
                 ]
   :source-paths ["src/clj"]
   :main react-cljs.core
