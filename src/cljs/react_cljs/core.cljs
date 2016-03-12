@@ -95,8 +95,10 @@
                  :on-change #(dispatch [:change-value (reset! val (-> % .-target .-value))])}]]])))
 
 (defn max-coll [coll]
-  (reduce (fn [x y]
-            (if (> x y) x y)) coll))
+  (if (empty? coll)
+    0
+    (reduce (fn [x y]
+              (if (> x y) x y)) coll)))
 
 
 (defn get-val [id]
@@ -113,29 +115,29 @@
         [:div
          [:div.form-group
           [:div.row
-           [:div.col-sm-10
+           [:div.col-sm-8
             [:input.form-control {:id "add"
                                   :type "text"
                                   :placeholder "Enter Your tasks Here"}]]
            [:div.col-sm-2
             [:button.btn.btn-primary {:on-click  #(do
                                                     (dispatch [:add-task task-no (get-val "add")])
-                                                    (set-val "add" "")) } "Add New"]]]]
+                                                    (set-val "add" "")) } "Add New Task"]]]]
          (for [t @tasks]
            ^{:key (first t)}
            [:div.form-group
             [:div.row
-             [:div.col-sm-2
+             [:div.col-sm-1
               [:input
                {:id (first t)
                 :type "checkbox"
                 :style {:width "25px" :height "25px"}
                 :on-change #(dispatch [:task-done (js/parseInt (-> % .-target .-id))])}]]
-             [:div.col-sm-6
+             [:div.col-sm-8
               [:strong (when (:done (second t))
                          {:style {:color "green"}})
                (:task-name (second t))]]
-             [:div.col-sm-2
+             [:div.col-sm-1
               [:button.btn.btn-danger
                {:id (first t)
                 :on-click #(dispatch [:remove-task (js/parseInt (-> % .-target .-id)) ])}
