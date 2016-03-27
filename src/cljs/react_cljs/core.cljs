@@ -126,6 +126,26 @@
      [button "right"]]]
    ])
 
+;; ======================================= left-tabs ===================================
+
+(def tab (reagent/adapt-react-class (aget js/ReactBootstrap "Tab")))
+
+(def tabs (reagent/adapt-react-class (aget js/ReactBootstrap "Tabs")))
+
+(defn left-tabs []
+  [:div
+   [:div.page-header [:h3 [:b "Left Tabs"]]]
+   [tabs {:default-active-key 3 :position "left" :tab-width 3}
+    [tab {:event-key (js* "{1}") :title "Tab 1"} "Tab 1 contant"]
+    [tab {:event-key 2 :title "Tab 2"} "Tab 2 contant"]
+    [tab {:event-key 3 :title "Tab 3"} "Tab 3 contant"]]])
+
+
+
+
+
+
+
 (defn home []
   [:div.container
    [:div.page-header
@@ -137,7 +157,8 @@
    [disabled-buttons]
    [button-tag]
    [button-loading-state]
-   [button-groups]])
+   [button-groups]
+   [left-tabs]])
 
 (defn render-sample []
   (reagent/render-component [home]
