@@ -8,89 +8,127 @@
             [clojure.string :as str])
   (:import goog.History))
 
-;; ---------------------------------------------
-;; CSS
-(def p-style {:font-size "20px"
-              :font-weight "bold"
-              :color "grey"
-              :font-style "italic"
-              :font-family {:align "center"}})
 
-(def p1-style {:font-size "20px"
-               :font-weight "bold"
-               :color "green"
-               :font-style "italic"
-               :font-family {:align "center"}})
+(def my-atom (reagent/atom
+              {:rooms {1 {:name "Single" :rooms 1 :nights 10 :hotelname "Super" :amount 200 }
+                       2 {:name "Single" :rooms 1 :nights 10 :hotelname "Super" :amount 300 }}}))
 
-;; --------------------------------------------
-;; global-atom
+;; Add Input elements
 
-(def todo-list  (atom  [{:task-no 1 :task-name "Learning Clojure From Ground up" :done false}
-                        {:task-no 2 :task-name "Four Clojure 1 to 10 Tasks" :done false}
-                        {:task-no 3 :task-name "Learning bash Commands" :done false}]))
+(defn add-text [label id type data]
+  [:div.col-sm-2
+   [:label.sr-only label]
+   [:input.form-control
+    {:id id
+     :type type
+     :value (@data id)
+     :placeholder label
+     :on-change #(swap! data assoc id (-> % .-target .-value))}]])
 
-(defn get-val [id]
-  (.-value (dom/getElement id)))
+(defn add-num [label id type data]
+  [:div.col-sm-2
+   [:label.sr-only label]
+   [:input.form-control
+    {:id id
+     :type type
+     :value (@data id)
+     :placeholder label
+     :on-change #(swap! data assoc id (int (-> % .-target .-value)))}]])
 
-(defn set-val [id val]
-  (set! (.-value (dom/getElement id)) val))
+(defn add-select [id data]
+  [:div.col-sm-2
+   [:select.form-control
+    {:id id
+     :value (@data id 0)
+     :on-change #(swap! data
+                        assoc
+                        id
+                        (-> % .-target .-value))}
+    [:option {:value 0} "Room Type"]
+    (for [d ["Single" "Double" "Triple" "Child with bed" "Quad Occupancy"]]
+      ^{:key d}
+      [:option {:value d} d])]])
 
-(defn head [fun]
-  [:div.form-group
-   [:div.row
-    [:div.col-sm-10 [:input.form-control {:type "text" :id "add" :placeholder "Enter your tasks here"}]]
-    [:div.col-sm-2 [:button.btn.btn-primary {:on-click fun} "Add"]]]])
 
-(defn add-onclick []
-  (when-not (str/blank? (get-val "add"))
-    (do (swap! todo-list conj
-               {:task-no (inc (:task-no (last @todo-list)))
-                :task-name (get-val"add")
-                :done false})
-        (set-val "add" ""))))
+(defn upd-text [label id type num data]
+  [:div.col-sm-2
+   [:label.sr-only label]
+   [:input.form-control
+    {:id id
+     :type type
+     :value (get-in @data [:rooms num id])
+     :placeholder label
+     :on-change #(swap! data assoc-in [:rooms num id]
+                        (-> % .-target .-value))}]])
 
-(defn rm-task [num coll]
-  (reduce (fn [x y]
-            (if (= num (:task-no y))
-              x
-              (conj x y))) [] coll))
+(defn upd-num [label id type num data]
+  [:div.col-sm-2
+   [:label.sr-only label]
+   [:input.form-control
+    {:id id
+     :type type
+     :value (get-in @data [:rooms num id])
+     :placeholder label
+     :on-change #(swap! data assoc-in [:rooms num id]
+                        (int (-> % .-target .-value)))}]])
 
-(defn cb-onclick [x coll]
-  (let [idx (loop [c @coll
-                   ans 0]
-              (if (= x (:task-no (first c)))
-                ans
-                (recur (next c) (inc ans))))]
-    (swap! coll update-in [idx :done] not)))
+(defn upd-select [id num data]
+  [:div.col-sm-2
+   [:select.form-control
+    {:id id
+     :value (get-in @data [:rooms num id])
+     :on-change #(swap! data
+                        assoc-in
+                        [:rooms num id]
+                        (-> % .-target .-value))}
+    [:option {:value 0} "Room Type"]
+    (for [d ["Single" "Double" "Triple" "Child with bed" "Quad Occupancy"]]
+      ^{:key d}
+      [:option {:value d} d])]])
 
-(defn task-text [map]
-  [:div.col-sm-9 (if (:done map)
-                   [:p {:style p1-style}  (:task-name map)]
-                   [:p {:style p-style}  (:task-name map)])])
+(defn add-accom-comp [ratom]
+  (let [data (reagent/atom {:rooms 1})]
+    (fn []
+      [:div
+       [:div.row
+        [add-select :name data]
+        [add-num "No of Rooms" :rooms "text" data]
+        [add-num "No of Nights" :nights "text" data]
+        [add-text "Hotel name" :hotelname "text" data]
+        [add-num "Amount" :amount "text" data]
+        [:button.btn.btn-info
+         {:on-click #((swap! ratom
+                             assoc-in
+                             [:rooms
+                              (if (nil? (keys (@ratom :rooms))) 1
+                                  (inc (apply max (keys (@ratom :rooms)))))]
+                             @data)
+                      (reset! data {:rooms 1}))}
+         [:span.glyphicon.glyphicon-plus]]]
+       [:p (str @data)]])))
 
-(defn tasks-list []
+(defn  accommodation-comp [ratom]
   [:div
-   (for [task @todo-list]
-     ^{:key (:task-no task)}
-     [:div.row
-      [:div.col-sm-1 [:input {:id (:task-no task) :type "checkbox" :style {:width "25px" :height "25px"} :on-change #(cb-onclick (js/parseInt (-> % .-target .-id)) todo-list)}]]
-      [:div.col-sm-9 (if (:done task)
-                       [:p {:style p1-style}  (:task-name task)]
-                       [:p {:style p-style}  (:task-name task)])]
-      [:div.col-sm-2 [:button.btn.btn-default {:id (:task-no task) :on-click #(reset! todo-list (rm-task (js/parseInt (-> % .-target .-id)) @todo-list))}
-                      [:span.glyphicon.glyphicon-remove {:aria-hidden true}]]]])])
+   (for [i (@ratom :rooms)]
+     ^{:key (first i)}
+     [:div.fomr-group
+      [:div.row
+       [upd-select :name (first i) ratom]
+       [upd-num "No of Rooms" :rooms "text" (first i) ratom]
+       [upd-num "No of Nights" :nights "text" (first i) ratom]
+       [upd-text "Hotel name" :hotelname "text" (first i) ratom]
+       [upd-num  "Amount" :amount "text" (first i) ratom]
+       [:button.btn.btn-danger
+        {:on-click #(swap! ratom
+                           update-in [:rooms] dissoc (first i))}
+        [:span.glyphicon.glyphicon-remove]]]])
+   [:p (str @ratom)]
+   [add-accom-comp ratom]])
 
 (defn home []
   [:div.container
-   [:div.page-header [:h2 "To Do List"]]
-    [head add-onclick]
-    [:div
-     [:hr]
-     [tasks-list]
-     [:hr]]
-    [:span (str @todo-list)]])
-
-
+   [:div.page-header [:h2 "Rooms Form"]]
+   [accommodation-comp my-atom]])
 
 ;; ---------------------------------
 ;; rendering-part

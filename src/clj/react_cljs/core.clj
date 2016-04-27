@@ -28,4 +28,4 @@
 (defn -main
   [& args]
   (let [app (wrap-defaults app site-defaults)]
-    (run-jetty {:ring-handler app :port 8000})))
+    (run-jetty {:ring-handler app :port 8080})))
